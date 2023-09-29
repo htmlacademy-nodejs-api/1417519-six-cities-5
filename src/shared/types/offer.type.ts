@@ -17,5 +17,5 @@ export type Offer = {
   rentPrice: number;
   listAmenities: string[];
   user: User;
-  coordinates: Coordinates;
+  locations: Coordinates;
 }

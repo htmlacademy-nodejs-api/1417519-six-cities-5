@@ -40,7 +40,7 @@ export class TSVFileReader implements FileReader {
         listAmenities: listAmenities.split(';')
           .map((amenitie) => amenitie),
         user: { userName,email,avatar,password,userType},
-        coordinates: {latitude: Number.parseFloat(latitude), longitude: Number.parseFloat(longitude)},
+        locations: {latitude: Number.parseFloat(latitude), longitude: Number.parseFloat(longitude)},
       }));
   }
 }

@@ -36,14 +36,14 @@
       "image4.jpg",
       "image5.jpg"
     ],
-    "types": [
+    "houseType": [
       "apartment",
       "house",
       "room",
       "hotel",
       "box"
     ],
-    "goods": [
+    "listAmenities": [
       "Breakfast",
       "Air conditioning",
       "Laptop friendly workspace",
