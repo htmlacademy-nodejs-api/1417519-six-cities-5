@@ -1,0 +1,96 @@
+{
+  "api": {
+    "titles": [
+      "Title 1",
+      "Title 2",
+      "Title 3",
+      "Title 4",
+      "Title 5"
+    ],
+    "descriptions": [
+      "Description 1",
+      "Description 2",
+      "Description 3",
+      "Description 4",
+      "Description 5"
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "previewImages": [
+      "previewImage1.jpg",
+      "previewImage2.jpg",
+      "previewImage3.jpg",
+      "previewImage4.jpg",
+      "previewImage5.jpg"
+    ],
+    "images": [
+      "image1.jpg",
+      "image2.jpg",
+      "image3.jpg",
+      "image4.jpg",
+      "image5.jpg"
+    ],
+    "houseType": [
+      "apartment",
+      "house",
+      "room",
+      "hotel",
+      "box"
+    ],
+    "listAmenities": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "names": [
+      "Tom",
+      "Gerry",
+      "Monica",
+      "Rachel",
+      "Chandler"
+    ],
+    "emails": [
+      "tom@google.com",
+      "gerry@mail.ru",
+      "monika@yahoo.com",
+      "rachel@rambler.ru",
+      "chandler@yandex.ru"
+    ],
+    "avatars": [
+      "avatar1.jpg",
+      "avatar2.jpg",
+      "avatar3.jpg",
+      "avatar4.jpg",
+      "avatar5.jpg"
+    ],
+    "passwords": [
+      "password1",
+      "password2",
+      "password3",
+      "password4",
+      "password5"
+    ],
+    "userTypes": [
+      "pro",
+      "default"
+    ],
+    "locations": [
+      "48.85661 2.351499",
+      "50.938361 6.959974",
+      "50.846557 4.351697",
+      "52.370216 4.895168",
+      "53.550341 10.000654",
+      "51.225402 6.776314"
+    ]
+  }
+}
