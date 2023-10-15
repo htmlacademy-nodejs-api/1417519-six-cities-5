@@ -28,7 +28,8 @@ export function createOffer(offerData:string){
     description,
     date: new Date(date),
     city,
-    previewImage,
+    previewImage:previewImage.split(';')
+      .map((image) => image),
     photosHouses:photosHouses.split(';')
       .map((image) => image),
     isPremium:isPremium === 'true' ,
