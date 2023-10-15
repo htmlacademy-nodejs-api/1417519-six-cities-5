@@ -15,7 +15,7 @@ export class ImportCommand implements Command {
   private userService: UserService;
   private offerService: OfferService;
   private databaseClient: DatabaseClient;
-  private logger: Logger;
+  private readonly logger: Logger;
   private salt!: string;
   onCompleteImport: (count: number) => void;
 
@@ -27,6 +27,10 @@ export class ImportCommand implements Command {
     this.offerService = new DefaultOfferService(this.logger, OfferModel);
     this.userService = new DefaultUserService(this.logger, UserModel);
     this.databaseClient = new MongoDatabaseClient(this.logger);
+  }
+
+  public getName(): string {
+    return '--import';
   }
 
   private async onImportedLine(line: string, resolve: () => void) {
@@ -54,24 +58,17 @@ export class ImportCommand implements Command {
       date: offer.date,
       rentPrice: offer.rentPrice,
       houseType: offer.houseType,
-      city: '',
-      photosHouses: [],
-      isPremium: false,
-      isFavorite: false,
-      rating: 0,
-      numberRooms: 0,
-      numberGuests: 0,
-      listAmenities: [],
-      locations: {
-        latitude: 0,
-        longitude: 0
-      }
+      city: offer.city,
+      photosHouses: offer.photosHouses,
+      isPremium: offer.isPremium,
+      isFavorite: offer.isFavorite,
+      rating: offer.rating,
+      numberRooms: offer.numberRooms,
+      numberGuests: offer.numberGuests,
+      listAmenities: offer.listAmenities,
+      locations: offer.locations
     });
 
-  }
-
-  public getName(): string {
-    return '--import';
   }
 
   public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
@@ -79,6 +76,7 @@ export class ImportCommand implements Command {
     this.salt = salt;
 
     await this.databaseClient.connect(uri);
+
     const fileReader = new TSVFileReader(filename.trim());
 
     fileReader.on('line',this.onImportedLine);

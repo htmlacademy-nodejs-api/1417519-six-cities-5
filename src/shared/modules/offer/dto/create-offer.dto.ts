@@ -5,7 +5,7 @@ export class CreateOfferDto {
   public description!: string;
   public date!: Date;
   public city!: string;
-  public previewImage!: string;
+  public previewImage!: string[];
   public photosHouses!: string[];
   public isPremium!: boolean;
   public isFavorite!: boolean;
