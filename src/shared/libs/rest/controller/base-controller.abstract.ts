@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import { Controller } from './controller.interface.js';
 import { Response, Router } from 'express';
 import { Logger } from '../../logger/index.js';
-import { Route } from '../route.interface.js';
+import { Route } from './types/route.interface.js';
 import { StatusCodes} from 'http-status-codes';
 
 
