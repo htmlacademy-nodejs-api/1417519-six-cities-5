@@ -16,25 +16,41 @@ export interface OfferEntity extends defaultClasses.Base {}
 })
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class OfferEntity extends defaultClasses.TimeStamps{
-  @prop({trim: true, required: true})
+  @prop({
+    required: true,
+    trim: true,
+    minlength: 10,
+    maxlength: 100,
+  })
   public title!: string;
 
-  @prop({trim: true})
+  @prop({
+    required: true,
+    trim: true,
+    minlength: 20,
+    maxlength: 1024,
+  })
   public description!: string;
 
-  @prop()
+  @prop({ required: true })
   public date!: Date;
 
-  @prop()
+  @prop({
+    required: true,
+    type: () => String,
+  })
   public city!: string;
 
-  @prop()
-  public previewImage!: string[];
+  @prop({ required: true })
+  public previewImage!: string;
 
-  @prop()
+  @prop({
+    required: true,
+    type: [String]
+  })
   public photosHouses!: string[];
 
-  @prop()
+  @prop({ required: true })
   public isPremium!: boolean;
 
   @prop()
@@ -43,27 +59,48 @@ export class OfferEntity extends defaultClasses.TimeStamps{
   @prop()
   public rating!: number;
 
-  @prop()
+  @prop({
+    required: true,
+    type: () => String,
+  })
   public houseType!: string;
 
-  @prop()
+  @prop({
+    required: true,
+    min: 1,
+    max: 8,
+  })
   public numberRooms!: number;
 
-  @prop()
+  @prop({
+    required: true,
+    min: 1,
+    max: 10,
+  })
   public numberGuests!: number;
 
-  @prop()
+  @prop({
+    required: true,
+    min: 100,
+    max: 100000,
+  })
   public rentPrice!: number;
 
-  @prop()
+  @prop({
+    required: true,
+    type: () => String,
+    default: [],
+  })
   public listAmenities!: string[];
 
   @prop({
-    ref: UserEntity
+    ref: UserEntity,
   })
   public user!: Ref<UserEntity>;
 
-  @prop()
+  @prop({
+    required: true
+  })
   public locations!: Coordinates;
 }
 
