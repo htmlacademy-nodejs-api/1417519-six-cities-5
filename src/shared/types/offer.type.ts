@@ -1,5 +1,6 @@
 import { Coordinates } from './coordinates.type.js';
 import { User } from './user.type.js';
+import { ParamsDictionary } from 'express-serve-static-core';
 
 export type Offer = {
   title: string;
@@ -19,3 +20,12 @@ export type Offer = {
   user: User;
   locations: Coordinates;
 }
+
+
+export type OfferId = {
+  offerId: string;
+} | ParamsDictionary;
+
+export type ParamCity = {
+   cityName: string
+   } | ParamsDictionary;
