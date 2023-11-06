@@ -79,13 +79,13 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async find(count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async find(count?: number): Promise<DocumentType<OfferEntity>[]> {
     const limit = count ?? DEFAULT_OFFER_COUNT;
     return this.offerModel
       .aggregate([
         ...this.commentsLookup,
         ...this.favoritesLookup,
-        { $project: { title: 1, date: 1, city: 1, houseType: 1, price: 1, preview: 1, isPremium: 1 } },
+        { $project: { title: 1, date: 1, city: 1, houseType: 1, price: 1, previewImage: 1, isPremium: 1 } },
         { $sort: { offerCount: SortType.Down } },
         { $limit: limit },
       ])
@@ -109,7 +109,7 @@ export class DefaultOfferService implements OfferService {
         },
         ...this.commentsLookup,
         ...this.favoritesLookup,
-        { $project: { title: 1, date: 1, city: 1, houseType: 1, price: 1, preview: 1 } },
+        { $project: { title: 1, date: 1, city: 1, houseType: 1, price: 1, previewImage: 1 } },
         { $limit: DEFAULT_PREMIUM_OFFER },
         { $sort: { createdAt: SortType.Down } },
       ])

@@ -35,7 +35,7 @@ paths:
 
       responses:
         "201":
-          description: Пользователь зарегистрирован. Объект пользователя.
+          description: Пользователь зарегистрирован.
           content:
             application/json:
               schema:
