@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { BaseController, HttpError, HttpMethod } from '../../libs/rest/index.js';
+import { BaseController, HttpError, HttpMethod, ValidateDtoMiddleware } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/component.enum.js';
 import { CommentService } from './comment-service.interface.js';
@@ -9,6 +9,7 @@ import { fillDTO } from '../../helpers/common.js';
 import { OfferService } from '../offer/offer-service.interface.js';
 import { CommentRdo } from './rdo/comment.rdo.js';
 import { CreateCommentRequest } from '../../types/comment.type.js';
+import { CreateCommentDto } from './index.js';
 
 
 @injectable()
@@ -22,13 +23,13 @@ export default class CommentController extends BaseController {
     super(logger);
 
     this.logger.info('Register routes for CommentController…');
-    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+
+    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create,middlewares: [
+      new ValidateDtoMiddleware(CreateCommentDto)
+    ] });
   }
 
-  public async create(
-    { body }: CreateCommentRequest,
-    res: Response
-  ): Promise<void> {
+  public async create({ body }: CreateCommentRequest, res: Response): Promise<void> {
 
     if (! await this.offerService.exists(body.offerId)) {
       throw new HttpError(
