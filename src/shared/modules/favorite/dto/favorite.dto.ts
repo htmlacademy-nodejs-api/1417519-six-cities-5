@@ -1,4 +1,9 @@
+import { IsMongoId } from 'class-validator';
+import { FavoriteMessages } from './favorite.message.js';
+
 export class FavoriteDto {
   userId!: string;
-  offerId!: string;
+
+  @IsMongoId({ message: FavoriteMessages.offerId.invalidFormat })
+    offerId!: string;
 }

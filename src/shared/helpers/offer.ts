@@ -1,3 +1,4 @@
+import { HouseType } from './enum.js';
 
 export function createOffer(offerData:string){
   const [
@@ -8,8 +9,6 @@ export function createOffer(offerData:string){
     previewImage,
     photosHouses,
     isPremium,
-    isFavorite,
-    rating,
     houseType,
     numberRooms,
     numberGuests,
@@ -33,9 +32,7 @@ export function createOffer(offerData:string){
     photosHouses:photosHouses.split(';')
       .map((image) => image),
     isPremium:isPremium === 'true' ,
-    isFavorite: isFavorite === 'true',
-    rating: Number.parseFloat(rating),
-    houseType,
+    houseType: HouseType[houseType as keyof typeof HouseType],
     numberRooms:Number.parseInt(numberRooms, 10),
     numberGuests:Number.parseInt(numberGuests, 10),
     rentPrice:Number.parseInt(rentPrice, 10),
