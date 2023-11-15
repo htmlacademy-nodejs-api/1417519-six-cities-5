@@ -137,7 +137,6 @@ export class OfferController extends BaseController{
   public async updateById({ body, params }: Request<OfferId, unknown, UpdateOfferDto>, res: Response): Promise<void> {
 
     const { offerId } = params;
-    console.log(offerId);
     const updatedOffer = await this.offerService.updateById(offerId, body);
 
     this.ok(res, fillDTO(OfferRdo, updatedOffer));

@@ -27,7 +27,7 @@ Content-Type: application/json
   "description": "I am happy to welcome you to my apartment in the city center! Yo!",
   "city": "Brussels",
   "previewImage": "https://13.design.pages.academy/static/hotel/15.jpg",
-  "photosHouses ": [
+  "photosHouses": [
     "https://13.design.pages.academy/static/hotel/16.jpg",
     "https://13.design.pages.academy/static/hotel/17.jpg",
     "https://13.design.pages.academy/static/hotel/16.jpg",
