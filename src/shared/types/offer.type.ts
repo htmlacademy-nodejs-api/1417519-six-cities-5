@@ -7,7 +7,7 @@ export type Offer = {
   description: string;
   date: Date;
   city: string;
-  previewImage: string[];
+  previewImage: string;
   photosHouses: string[];
   isPremium: boolean;
   houseType: string;

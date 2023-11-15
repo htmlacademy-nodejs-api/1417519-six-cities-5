@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { BaseController, DocumentExistsMiddleware, HttpMethod, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../libs/rest/index.js';
+import { BaseController, DocumentExistsMiddleware, HttpMethod, UploadFileMiddleware, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../libs/rest/index.js';
 import { Component } from '../../types/component.enum.js';
 import { Logger } from '../../libs/logger/logger.interface.js';
 import { Request, Response } from 'express';
@@ -11,6 +11,10 @@ import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { OfferPreviewRdo } from './rdo/offer-previw.rdo.js';
 import { CommentService } from '../comment/comment-service.interface.js';
 import { CommentRdo } from '../comment/index.js';
+import { Config } from '../../libs/config/config.interface.js';
+import { RestSchema } from '../../libs/config/rest.schema.js';
+import { ValidateCityMiddleware } from '../../libs/rest/middleware/validate-city.middleware.js';
+import { UploadImageRdo } from './rdo/upload-image.rdo.js';
 
 @injectable()
 export class OfferController extends BaseController{
@@ -18,6 +22,7 @@ export class OfferController extends BaseController{
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) private readonly offerService: DefaultOfferService,
     @inject(Component.CommentService) private readonly commentService: CommentService,
+    @inject(Component.Config) private readonly configService: Config<RestSchema>,
   ){
     super(logger);
 
@@ -59,15 +64,38 @@ export class OfferController extends BaseController{
     this.addRoute({
       path: '/premium/:cityName',
       method:HttpMethod.Get,
-      handler: this.getPremium});
-
+      handler: this.getPremium,
+      middlewares: [
+        new ValidateCityMiddleware('cityName')
+      ]},
+    );
     this.addRoute({
       path: '/:offerId/comments',
       method: HttpMethod.Get,
       handler: this.getComments,
-      middlewares:[
+      middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),] });
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+      ]
+    });
+
+    this.addRoute({
+      path: '/:offerId/photos',
+      method: HttpMethod.Post,
+      handler: this.uploadImage,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'photos'),
+      ]
+    });
+  }
+
+  public async uploadImage({ params, file } : Request<OfferId>, res: Response) {
+    const { offerId } = params;
+    const updateDto = { photosHouses: file?.filename };
+    await this.offerService.updateById(offerId, updateDto);
+
+    this.created(res, fillDTO(UploadImageRdo, updateDto));
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -107,8 +135,9 @@ export class OfferController extends BaseController{
   }
 
   public async updateById({ body, params }: Request<OfferId, unknown, UpdateOfferDto>, res: Response): Promise<void> {
-    const { offerId } = params;
 
+    const { offerId } = params;
+    console.log(offerId);
     const updatedOffer = await this.offerService.updateById(offerId, body);
 
     this.ok(res, fillDTO(OfferRdo, updatedOffer));
