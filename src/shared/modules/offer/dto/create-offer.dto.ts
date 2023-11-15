@@ -33,11 +33,6 @@ export class CreateOfferDto {
   @MaxLength(256, { message: CreateOfferValidationMessage.previewImage.maxLength })
   public previewImage!: string[];
 
-  @MaxLength(256, {each: true, message: CreateOfferValidationMessage.photosHouses.maxLength })
-  @IsArray({ message: CreateOfferValidationMessage.photosHouses.invalidFormat })
-  @IsArray({ message: CreateOfferValidationMessage.photosHouses.invalidSize })
-  public photosHouses!: string[];
-
   @IsBoolean({ message: CreateOfferValidationMessage.isPremium.invalidFormat })
   public isPremium!: boolean;
 
@@ -61,7 +56,7 @@ export class CreateOfferDto {
 
   @IsArray({ message: CreateOfferValidationMessage.listAmenities.invalidFormat })
   @IsEnum(Comforts, { each: true, message: CreateOfferValidationMessage.listAmenities.invalid })
-  public listAmenities!: string[];
+  public listAmenities!: Comforts;
 
   public user!: string;
 

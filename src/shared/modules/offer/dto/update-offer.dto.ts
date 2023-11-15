@@ -21,14 +21,14 @@ export class UpdateOfferDto {
 
   @IsOptional()
   @MaxLength(256, { message: UpdateOfferValidationMessage.previewImage.maxLength })
-  public previewImage?: string[];
+  public previewImage?: string;
 
   @IsOptional()
   @IsArray({ message: UpdateOfferValidationMessage.photosHouses.invalidFormat })
   @MaxLength(256, { message: UpdateOfferValidationMessage.photosHouses.maxLength })
   @ArrayMinSize(6, { message: UpdateOfferValidationMessage.photosHouses.invalidSize })
   @ArrayMaxSize(6, { message: UpdateOfferValidationMessage.photosHouses.invalidSize })
-  public photosHouses?: string[];
+  public photosHouses?: string;
 
   @IsOptional()
   @IsBoolean({ message: UpdateOfferValidationMessage.isPremium.invalidFormat })

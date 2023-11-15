@@ -1,6 +1,7 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref, Severity } from '@typegoose/typegoose';
 import { UserEntity } from '../user/user.entity.js';
 import { Coordinates } from '../../types/coordinates.type.js';
+import { CitiesName, Comforts, HouseType } from '../../helpers/enum.js';
 
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -38,6 +39,7 @@ export class OfferEntity extends defaultClasses.TimeStamps{
   @prop({
     required: true,
     type: () => String,
+    enum: CitiesName
   })
   public city!: string;
 
@@ -56,6 +58,7 @@ export class OfferEntity extends defaultClasses.TimeStamps{
   @prop({
     required: true,
     type: () => String,
+    enum: HouseType
   })
   public houseType!: string;
 
@@ -84,6 +87,7 @@ export class OfferEntity extends defaultClasses.TimeStamps{
     required: true,
     type: () => String,
     default: [],
+    enum: Comforts
   })
   public listAmenities!: string[];
 
