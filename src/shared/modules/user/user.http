@@ -1,10 +1,26 @@
 
-POST http://localhost:4000/users/login HTTP/1.1
+POST http://localhost:4000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "torans@overlook.net",
-  "password": "shining"
+  "email": "moniksas@yahoo.com",
+  "avatar": "asdasd.das",
+  "userType": "Pro",
+  "userName": "Monica",
+  "password": "032979b488c0"
 }
 
 ###
+
+
+POST http://localhost:4000/users/652bcc6be4d542f66832fcfe/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="screen.png"
+Content-Type: image/png
+
+< Users/Максим/Desktop/programming/portfolio/sites/1417519-six-cities-5/upload/yourfile.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+##
