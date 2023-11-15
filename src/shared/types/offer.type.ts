@@ -1,3 +1,4 @@
+import { Comforts } from '../helpers/enum.js';
 import { Coordinates } from './coordinates.type.js';
 import { User } from './user.type.js';
 import { ParamsDictionary } from 'express-serve-static-core';
@@ -7,14 +8,14 @@ export type Offer = {
   description: string;
   date: Date;
   city: string;
-  previewImage: string;
+  previewImage: string[];
   photosHouses: string[];
   isPremium: boolean;
   houseType: string;
   numberRooms: number;
   numberGuests: number;
   rentPrice: number;
-  listAmenities: string[];
+  listAmenities: Comforts[];
   user: User;
   locations: Coordinates;
 }

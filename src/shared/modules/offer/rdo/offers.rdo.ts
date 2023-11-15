@@ -19,7 +19,7 @@ export class OfferRdo {
   public city!: string;
 
   @Expose()
-  public previewImage!: string;
+  public previewImage!: string[];
 
   @Expose()
   public photosHouses!: string[];
