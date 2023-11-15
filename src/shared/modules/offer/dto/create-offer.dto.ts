@@ -10,6 +10,8 @@ import {
   IsBoolean,
   ValidateNested,
   IsArray,
+  ArrayMinSize,
+  ArrayMaxSize,
 } from 'class-validator';
 import { CreateOfferValidationMessage } from './create-offer.message.js';
 import { CitiesName, Comforts, HouseType } from '../../../helpers/enum.js';
@@ -26,6 +28,12 @@ export class CreateOfferDto {
 
   @IsDateString({}, { message: CreateOfferValidationMessage.date.invalidFormat })
   public date!: Date;
+
+  @IsArray({ message: CreateOfferValidationMessage.photosHouses.invalidFormat })
+  @MaxLength(256, { message: CreateOfferValidationMessage.photosHouses.maxLength })
+  @ArrayMinSize(6, { message: CreateOfferValidationMessage.photosHouses.invalidSize })
+  @ArrayMaxSize(6, { message: CreateOfferValidationMessage.photosHouses.invalidSize })
+  public photosHouses!: string[];
 
   @IsEnum(CitiesName, { message: CreateOfferValidationMessage.city.invalid })
   public city!: string;
@@ -56,7 +64,7 @@ export class CreateOfferDto {
 
   @IsArray({ message: CreateOfferValidationMessage.listAmenities.invalidFormat })
   @IsEnum(Comforts, { each: true, message: CreateOfferValidationMessage.listAmenities.invalid })
-  public listAmenities!: Comforts;
+  public listAmenities!: Comforts[];
 
   public user!: string;
 

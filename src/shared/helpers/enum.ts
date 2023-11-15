@@ -28,3 +28,9 @@ export enum UserRole {
   Default = 'Обычный',
   Pro = 'Pro'
 }
+
+
+export enum RetryMongoConnecting {
+  Count = 5,
+  Timeout = 1000
+}
