@@ -7,6 +7,7 @@ import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { DEFAULT_OFFER_COUNT, DEFAULT_PREMIUM_OFFER } from './offer.constant.js';
+import { authorPipeline, commentsPipeline, defaultFavoritePipeline, favoritesPipeline } from './offer.aggregation.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -56,7 +57,10 @@ export class DefaultOfferService implements OfferService {
     return result;
   }
 
-  public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+  public async findById(offerId: string, userId?: string): Promise<DocumentType<OfferEntity> | null> {
+    const aggregate = userId ?
+      [...commentsPipeline, ...favoritesPipeline(userId), ...authorPipeline] :
+      [...commentsPipeline, ...defaultFavoritePipeline, ...authorPipeline];
     return this.offerModel
       .aggregate([
         {
@@ -66,8 +70,7 @@ export class DefaultOfferService implements OfferService {
             },
           },
         },
-        ...this.commentsLookup,
-        ...this.favoritesLookup
+        ...aggregate,
       ])
       .exec()
       .then(([result]) => result ?? null);
@@ -112,7 +115,10 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
+  public async findPremiumByCity(city: string, userId?: string): Promise<DocumentType<OfferEntity>[]> {
+    const aggregate = userId ?
+      [...commentsPipeline, ...favoritesPipeline(userId)] :
+      [...commentsPipeline, ...defaultFavoritePipeline];
     return this.offerModel
       .aggregate([
         {
@@ -120,12 +126,12 @@ export class DefaultOfferService implements OfferService {
             $and: [{ isPremium: true }, { city: city }],
           },
         },
-        ...this.commentsLookup,
-        ...this.favoritesLookup,
-        { $project: { title: 1, date: 1, city: 1, houseType: 1, price: 1, previewImage: 1 } },
+        ...aggregate,
+        { $project: { title: 1, date: 1, city: 1, houseType: 1, price: 1, preview: 1 } },
         { $limit: DEFAULT_PREMIUM_OFFER },
         { $sort: { createdAt: SortType.Down } },
       ])
       .exec();
   }
 }
+

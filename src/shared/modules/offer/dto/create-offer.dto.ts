@@ -66,7 +66,7 @@ export class CreateOfferDto {
   @IsEnum(Comforts, { each: true, message: CreateOfferValidationMessage.listAmenities.invalid })
   public listAmenities!: Comforts[];
 
-  public user!: string;
+  public userId!: string;
 
   @ValidateNested({message: CreateOfferValidationMessage.locations.invalidFormat})
   public locations!: Coordinates;
