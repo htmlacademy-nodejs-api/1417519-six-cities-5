@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { BaseController, HttpError, HttpMethod, ValidateDtoMiddleware } from '../../libs/rest/index.js';
+import { BaseController, HttpError, HttpMethod, ValidateDtoMiddleware, PrivateRouteMiddleware } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/component.enum.js';
 import { CommentService } from './comment-service.interface.js';
@@ -25,11 +25,13 @@ export default class CommentController extends BaseController {
     this.logger.info('Register routes for CommentController…');
 
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create,middlewares: [
+      new PrivateRouteMiddleware(),
       new ValidateDtoMiddleware(CreateCommentDto)
-    ] });
+    ]
+    });
   }
 
-  public async create({ body }: CreateCommentRequest, res: Response): Promise<void> {
+  public async create({ body, tokenPayload }: CreateCommentRequest, res: Response): Promise<void> {
 
     if (! await this.offerService.exists(body.offerId)) {
       throw new HttpError(
@@ -39,8 +41,7 @@ export default class CommentController extends BaseController {
       );
     }
 
-    const comment = await this.commentService.create(body);
-    await this.offerService.incCommentCount(body.offerId);
+    const comment = await this.commentService.create({ ...body, userId: tokenPayload.id });
     this.created(res, fillDTO(CommentRdo, comment));
   }
 }
