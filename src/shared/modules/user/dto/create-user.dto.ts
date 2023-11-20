@@ -6,11 +6,11 @@ export class CreateUserDto {
   @IsEmail({}, { message: CreateUserMessages.email.invalidFormat })
   public email!: string;
 
-  @IsString({ message: CreateUserMessages.avatarPath.invalidFormat })
+  @IsString({ message: CreateUserMessages.avatar.invalidFormat })
   public avatar!: string;
 
   @IsEnum(UserRole, { message: CreateUserMessages.userType.invalidFormat })
-  public userType!: string;
+  public userType!: UserRole;
 
   @IsString({ message: CreateUserMessages.userName.invalidFormat })
   @Length(1, 15, { message: CreateUserMessages.userName.lengthField })

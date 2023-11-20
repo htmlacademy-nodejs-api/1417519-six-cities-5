@@ -17,7 +17,7 @@ export class UpdateOfferDto {
 
   @IsOptional()
   @IsEnum(CitiesName, { message: UpdateOfferValidationMessage.city.invalid })
-  public city?: string;
+  public city?: CitiesName;
 
   @IsOptional()
   @MaxLength(256, { message: UpdateOfferValidationMessage.previewImage.maxLength })
@@ -36,7 +36,7 @@ export class UpdateOfferDto {
 
   @IsOptional()
   @IsEnum(HouseType, { message: UpdateOfferValidationMessage.houseType.invalid })
-  public houseType?: string;
+  public houseType?: HouseType;
 
   @IsOptional()
   @IsInt({ message: UpdateOfferValidationMessage.numberRooms.invalidFormat })

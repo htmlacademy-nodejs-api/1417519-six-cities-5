@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Comforts } from '../helpers/enum.js';
+import { CitiesName, Comforts, HouseType } from '../helpers/enum.js';
 import { Coordinates } from './coordinates.type.js';
 import { User } from './user.type.js';
 import { ParamsDictionary } from 'express-serve-static-core';
@@ -10,11 +10,12 @@ export type Offer = {
   title: string;
   description: string;
   date: Date;
-  city: string;
+  city: CitiesName;
   previewImage: string[];
   photosHouses: string[];
   isPremium: boolean;
-  houseType: string;
+  isFavorite: boolean;
+  houseType: HouseType;
   numberRooms: number;
   numberGuests: number;
   rentPrice: number;

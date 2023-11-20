@@ -1,6 +1,7 @@
 import { Expose, Type } from 'class-transformer';
 import { Coordinates } from '../../../types/index.js';
 import { UserRdo } from '../../user/rdo/user.rdo.js';
+import { CitiesName, HouseType } from '../../../helpers/enum.js';
 
 export class OfferRdo {
   @Expose({ name: '_id'})
@@ -16,7 +17,7 @@ export class OfferRdo {
   public date!: string;
 
   @Expose()
-  public city!: string;
+  public city!: CitiesName;
 
   @Expose()
   public previewImage!: string[];
@@ -34,7 +35,7 @@ export class OfferRdo {
   public rating!: number;
 
   @Expose()
-  public houseType!: string;
+  public houseType!: HouseType;
 
   @Expose()
   public numberRooms!: number;
@@ -51,7 +52,7 @@ export class OfferRdo {
   @Expose()
   public locations!: Coordinates;
 
-  @Expose({ name: 'user'})
+  @Expose({ name: 'userName'})
   @Type(() => UserRdo)
   public user!: UserRdo;
 
