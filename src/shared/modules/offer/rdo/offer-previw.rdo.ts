@@ -1,4 +1,5 @@
 import { Expose } from 'class-transformer';
+import { CitiesName, HouseType } from '../../../helpers/enum.js';
 
 export class OfferPreviewRdo {
   @Expose()
@@ -8,13 +9,13 @@ export class OfferPreviewRdo {
   public title!: string;
 
   @Expose()
-  public houseType!: string;
+  public houseType!: HouseType;
 
   @Expose()
   public date!: string;
 
   @Expose()
-  public city!: string;
+  public city!: CitiesName;
 
   @Expose()
   public previewImage!: string;

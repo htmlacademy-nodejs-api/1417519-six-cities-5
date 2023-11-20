@@ -140,7 +140,7 @@ export class OfferController extends BaseController{
     const currentOffer = await this.offerService.findById(offerId);
 
     if (currentOffer && currentOffer.user.toString() !== tokenPayload.id) {
-      throw new HttpError(StatusCodes.METHOD_NOT_ALLOWED, 'Only the author has the right to delete the offer');
+      throw new HttpError(StatusCodes.FORBIDDEN, 'Only the author has the right to delete the offer');
     }
 
     await this.commentService.deleteByOfferId(offerId);
@@ -153,7 +153,7 @@ export class OfferController extends BaseController{
     const currentOffer = await this.offerService.findById(offerId);
 
     if (currentOffer && currentOffer.user.toString() !== tokenPayload.id) {
-      throw new HttpError(StatusCodes.METHOD_NOT_ALLOWED, 'Only the author has the right to change the offer');
+      throw new HttpError(StatusCodes.FORBIDDEN, 'Only the author has the right to change the offer');
     }
 
     const updatedOffer = await this.offerService.updateById(offerId, body);

@@ -41,7 +41,7 @@ export class OfferEntity extends defaultClasses.TimeStamps{
     type: () => String,
     enum: CitiesName
   })
-  public city!: string;
+  public city!: CitiesName;
 
   @prop({ required: true })
   public previewImage!: string;
@@ -60,7 +60,7 @@ export class OfferEntity extends defaultClasses.TimeStamps{
     type: () => String,
     enum: HouseType
   })
-  public houseType!: string;
+  public houseType!:HouseType;
 
   @prop({
     required: true,

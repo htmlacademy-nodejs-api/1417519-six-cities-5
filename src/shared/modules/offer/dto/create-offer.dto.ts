@@ -36,7 +36,7 @@ export class CreateOfferDto {
   public photosHouses!: string[];
 
   @IsEnum(CitiesName, { message: CreateOfferValidationMessage.city.invalid })
-  public city!: string;
+  public city!: CitiesName;
 
   @MaxLength(256, { message: CreateOfferValidationMessage.previewImage.maxLength })
   public previewImage!: string[];
@@ -45,7 +45,7 @@ export class CreateOfferDto {
   public isPremium!: boolean;
 
   @IsEnum(HouseType, { message: CreateOfferValidationMessage.houseType.invalid })
-  public houseType!: string;
+  public houseType!: HouseType;
 
   @IsInt({ message: CreateOfferValidationMessage.numberRooms.invalidFormat })
   @Min(1, { message: CreateOfferValidationMessage.numberRooms.minValue })
