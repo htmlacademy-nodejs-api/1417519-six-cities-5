@@ -1,6 +1,7 @@
 import {defaultClasses, getModelForClass, prop, modelOptions } from '@typegoose/typegoose';
 import { User } from '../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';
+import { UserRole } from '../../helpers/enum.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
@@ -22,8 +23,11 @@ export class UserEntity extends defaultClasses.TimeStamps implements User{
   @prop({required:false, default:''})
   public avatar!: string;
 
-  @prop({required: true})
-  public userType!: string;
+  @prop({
+    required: true,
+    type: () => String,
+    enum: UserRole})
+  public userType!: UserRole;
 
   @prop({require:true, default: ''})
   public password?: string;
