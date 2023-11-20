@@ -7,7 +7,7 @@ import { StatusCodes} from 'http-status-codes';
 import asyncHandler from 'express-async-handler';
 
 
-const defaultContentType = 'application/json';
+const DEFAULT_CONTENT_TYPE = 'application/json';
 
 @injectable()
 export abstract class BaseController implements Controller {
@@ -38,7 +38,7 @@ export abstract class BaseController implements Controller {
 
   public send<T>(res: Response, statusCode: number, data: T): void {
     res
-      .type(defaultContentType)
+      .type(DEFAULT_CONTENT_TYPE)
       .status(statusCode)
       .json(data);
   }
